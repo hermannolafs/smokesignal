@@ -39,7 +39,7 @@ func checkIfPortIsInUseWithTimeout(port int, timeoutContext context.Context) (Po
 }
 
 func runLsofForPort(port int) (PortStatus, error) {
-	cmd := exec.Command( "lsof", fmt.Sprintf("-i:%d", port))
+	cmd := exec.Command("lsof", fmt.Sprintf("-i:%d", port))
 	if err := cmd.Run(); err != nil {
 		return checkIfLsofExitedWithNonzeroCode(err)
 	}

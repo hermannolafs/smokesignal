@@ -1,5 +1,10 @@
 # Smokesignal
 
+<p align="center">
+<a href="https://godoc.org/github.com/hermannolafs/smokesignal"><img src="https://godoc.org/github.com/hermannolafs/smokesignal?status.svg" alt="Godoc" /></a>
+<a href="https://goreportcard.com/report/github.com/hermannolafs/smokesignal"><img src="https://goreportcard.com/badge/github.com/hermannolafs/smokesignal" alt="Go Report Card" /></a>
+</p>
+
 A simple smoke testing library for Golang.
 
 Currently the following things can be tested:
