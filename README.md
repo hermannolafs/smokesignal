@@ -19,3 +19,5 @@ type Server interface {
 ```
 
 Best practice is to tag your smoke tests and run then seperately before the rest of your tests
+
+Heavily inspired by [steinfletcher/apitest](https://github.com/steinfletcher/apitest)
