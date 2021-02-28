@@ -2,6 +2,7 @@
 
 <p align="center">
 <a href="https://godoc.org/github.com/hermannolafs/smokesignal"><img src="https://godoc.org/github.com/hermannolafs/smokesignal?status.svg" alt="Godoc" /></a>
+<a href='https://coveralls.io/github/hermannolafs/smokesignal?branch=main'><img src='https://coveralls.io/repos/github/hermannolafs/smokesignal/badge.svg?branch=main' alt='Coverage Status' /></a>
 <a href="https://goreportcard.com/report/github.com/hermannolafs/smokesignal"><img src="https://goreportcard.com/badge/github.com/hermannolafs/smokesignal" alt="Go Report Card" /></a>
 </p>
 
