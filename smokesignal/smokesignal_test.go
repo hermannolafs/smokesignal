@@ -78,7 +78,6 @@ func Test_APITest_StopServer(t *testing.T) {
 	}
 }
 
-
 func Test_APITest_Full(t *testing.T) {
 	totallyFakeServer := mock.NewMockServer()
 

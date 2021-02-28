@@ -38,7 +38,7 @@ func assertDefaultPortIsUsed(t *testing.T) {
 	assertDefaultPort(used, assertPortIsUsedTimeout, t)
 }
 
-func assertDefaultPort(want portStatus, timeout time.Duration, t *testing.T) {
+func assertDefaultPort(want PortStatus, timeout time.Duration, t *testing.T) {
 	t.Helper()
 	portUsed, err := CheckIfPortIsInUse(mock.Port, timeout, t)
 

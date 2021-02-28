@@ -8,14 +8,14 @@ import (
 	"time"
 )
 
-type portStatus string
+type PortStatus string
 
 var (
-	used    portStatus = "used"
-	notUsed portStatus = "NOT used"
+	used    PortStatus = "used"
+	notUsed PortStatus = "NOT used"
 )
 
-func CheckIfPortIsInUse(port int, timeout time.Duration, t *testing.T) (portStatus, error) {
+func CheckIfPortIsInUse(port int, timeout time.Duration, t *testing.T) (PortStatus, error) {
 	t.Helper()
 
 	timeoutContext, cancel := context.WithTimeout(context.Background(), timeout)
@@ -24,7 +24,7 @@ func CheckIfPortIsInUse(port int, timeout time.Duration, t *testing.T) (portStat
 	return checkIfPortIsInUseWithTimeout(port, timeoutContext)
 }
 
-func checkIfPortIsInUseWithTimeout(port int, timeoutContext context.Context) (portStatus, error) {
+func checkIfPortIsInUseWithTimeout(port int, timeoutContext context.Context) (PortStatus, error) {
 	for {
 		select {
 		case <-timeoutContext.Done():
@@ -38,7 +38,7 @@ func checkIfPortIsInUseWithTimeout(port int, timeoutContext context.Context) (po
 	}
 }
 
-func runLsofForPort(port int) (portStatus, error) {
+func runLsofForPort(port int) (PortStatus, error) {
 	cmd := exec.Command( "lsof", fmt.Sprintf("-i:%d", port))
 	if err := cmd.Run(); err != nil {
 		return checkIfLsofExitedWithNonzeroCode(err)
@@ -47,7 +47,7 @@ func runLsofForPort(port int) (portStatus, error) {
 	return used, nil
 }
 
-func checkIfLsofExitedWithNonzeroCode(err error) (portStatus, error) {
+func checkIfLsofExitedWithNonzeroCode(err error) (PortStatus, error) {
 	if _, ok := err.(*exec.ExitError); ok {
 		return notUsed, nil
 	}
