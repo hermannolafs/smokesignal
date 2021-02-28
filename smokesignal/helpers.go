@@ -2,21 +2,20 @@ package smokesignal
 
 import (
 	"context"
+	"fmt"
 	"os/exec"
 	"testing"
 	"time"
 )
 
-type used string
+type portStatus string
 
 var (
-	localhost string = "localhost"
-
-	USED    used = "USED"
-	NOTUSED used = "NOT USED"
+	used    portStatus = "used"
+	notUsed portStatus = "NOT used"
 )
 
-func CheckIfPortIsInUse(port string, timeout time.Duration, t *testing.T) (used, error) {
+func CheckIfPortIsInUse(port int, timeout time.Duration, t *testing.T) (portStatus, error) {
 	t.Helper()
 
 	timeoutContext, cancel := context.WithTimeout(context.Background(), timeout)
@@ -25,13 +24,13 @@ func CheckIfPortIsInUse(port string, timeout time.Duration, t *testing.T) (used,
 	return checkIfPortIsInUseWithTimeout(port, timeoutContext)
 }
 
-func checkIfPortIsInUseWithTimeout(port string, timeoutContext context.Context) (used, error) {
+func checkIfPortIsInUseWithTimeout(port int, timeoutContext context.Context) (portStatus, error) {
 	for {
 		select {
 		case <-timeoutContext.Done():
 			return runLsofForPort(port)
 		default:
-			if useState, err := runLsofForPort(port); useState == USED {
+			if useState, err := runLsofForPort(port); useState == used {
 				return useState, err
 			}
 		}
@@ -39,18 +38,18 @@ func checkIfPortIsInUseWithTimeout(port string, timeoutContext context.Context) 
 	}
 }
 
-func runLsofForPort(port string) (used, error) {
-	cmd := exec.Command("lsof", "-i:"+port)
+func runLsofForPort(port int) (portStatus, error) {
+	cmd := exec.Command( "lsof", fmt.Sprintf("-i:%d", port))
 	if err := cmd.Run(); err != nil {
 		return checkIfLsofExitedWithNonzeroCode(err)
 	}
 
-	return USED, nil
+	return used, nil
 }
 
-func checkIfLsofExitedWithNonzeroCode(err error) (used, error) {
+func checkIfLsofExitedWithNonzeroCode(err error) (portStatus, error) {
 	if _, ok := err.(*exec.ExitError); ok {
-		return NOTUSED, nil
+		return notUsed, nil
 	}
 
 	return "", err

@@ -34,7 +34,7 @@ func ApiTest(t *testing.T, server Server) SmokeSignal {
 	}
 }
 
-func (smoke SmokeSignal) AssertPortIsNotUsed(port string) SmokeSignal {
+func (smoke SmokeSignal) AssertPortIsNotUsed(port int) SmokeSignal {
 	smoke.t.Helper()
 
 	useState, err := CheckIfPortIsInUse(
@@ -43,7 +43,7 @@ func (smoke SmokeSignal) AssertPortIsNotUsed(port string) SmokeSignal {
 		smoke.t,
 	)
 
-	if useState == NOTUSED && err != nil {
+	if useState == notUsed && err != nil {
 		smoke.t.Fatal(err)
 	}
 
@@ -59,7 +59,7 @@ func (smoke SmokeSignal) LaunchServer() SmokeSignal {
 	return smoke
 }
 
-func (smoke SmokeSignal) AssertPortIsUsed(port string) SmokeSignal {
+func (smoke SmokeSignal) AssertPortIsUsed(port int) SmokeSignal {
 	smoke.t.Helper()
 
 	useState, err := CheckIfPortIsInUse(
@@ -68,7 +68,7 @@ func (smoke SmokeSignal) AssertPortIsUsed(port string) SmokeSignal {
 		smoke.t,
 	)
 
-	if useState == USED && err != nil {
+	if useState == used && err != nil {
 		smoke.t.Fatal(err)
 	}
 
